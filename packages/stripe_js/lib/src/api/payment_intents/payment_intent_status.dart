@@ -23,10 +23,14 @@ enum PaymentIntentsStatus {
   /// with 3D Secure, the PaymentIntent has a status of requires_action.
   requiresAction,
 
+  requiresCapture,
+  
   /// Once required actions are handled, the PaymentIntent moves to processing.
   /// While for some payment methods (for example, cards) processing can be
   /// quick, other types of payment methods can take up to a few days to process.
   processing,
+
+
 
   /// A PaymentIntent with a status of succeeded means that the payment flow
   /// it is driving is complete.
