@@ -39,7 +39,7 @@ class WebStripe extends StripePlatform {
   factory WebStripe() => instance;
 
   @override
-  bool get updateSettingsLazily => false;
+  bool get updateSettingsLazily => true; // set to true to fix the blank payment element issue
 
   String? _urlScheme;
 
