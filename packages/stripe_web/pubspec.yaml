@@ -15,11 +15,7 @@ dependencies:
   freezed_annotation: ^2.0.3
   stripe_platform_interface: ^10.1.1
   js: ^0.6.3
-  stripe_js:
-    git:
-      url: https://github.com/wt-health/flutter_stripe.git
-      ref: f43f5251b11057a45c889baff96a029f9f661115
-      path: packages/stripe_js
+  stripe_js: ^3.4.0
 
 dev_dependencies:
   flutter_test:
