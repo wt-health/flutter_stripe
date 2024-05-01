@@ -23,6 +23,9 @@ enum PaymentIntentsStatus {
   /// with 3D Secure, the PaymentIntent has a status of requires_action.
   requiresAction,
 
+  /// If you’re separately authorising and capturing funds, your PaymentIntent
+  /// can instead move to requires_capture. In that case, attempting to capture
+  /// the funds moves it to processing.
   requiresCapture,
   
   /// Once required actions are handled, the PaymentIntent moves to processing.

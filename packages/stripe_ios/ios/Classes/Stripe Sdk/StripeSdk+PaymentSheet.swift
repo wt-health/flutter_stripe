@@ -50,6 +50,10 @@ extension StripeSdk {
             configuration.allowsDelayedPaymentMethods = allowsDelayedPaymentMethods
         }
         
+        if let removeSavedPaymentMethodMessage = params["removeSavedPaymentMethodMessage"] as? String {
+            configuration.removeSavedPaymentMethodMessage = removeSavedPaymentMethodMessage
+        }
+        
         if let billingConfigParams = params["billingDetailsCollectionConfiguration"] as? [String: Any?] {
             configuration.billingDetailsCollectionConfiguration.name = StripeSdk.mapToCollectionMode(str: billingConfigParams["name"] as? String)
             configuration.billingDetailsCollectionConfiguration.phone = StripeSdk.mapToCollectionMode(str: billingConfigParams["phone"] as? String)
@@ -93,6 +97,10 @@ extension StripeSdk {
                 }
                 configuration.customer = .init(id: customerId, ephemeralKeySecret: customerEphemeralKeySecret)
             }
+        }
+        
+        if let preferredNetworksAsInts = params["preferredNetworks"] as? Array<Int> {
+            configuration.preferredNetworks = preferredNetworksAsInts.map(Mappers.intToCardBrand).compactMap { $0 }
         }
         
         return (nil, configuration)
@@ -262,7 +270,7 @@ extension StripeSdk {
         })
     }
     
-    private static func mapToCollectionMode(str: String?) -> PaymentSheet.BillingDetailsCollectionConfiguration.CollectionMode {
+    internal static func mapToCollectionMode(str: String?) -> PaymentSheet.BillingDetailsCollectionConfiguration.CollectionMode {
         switch str {
         case "automatic":
             return .automatic
@@ -275,7 +283,7 @@ extension StripeSdk {
         }
     }
     
-    private static func mapToAddressCollectionMode(str: String?) -> PaymentSheet.BillingDetailsCollectionConfiguration.AddressCollectionMode {
+    internal static func mapToAddressCollectionMode(str: String?) -> PaymentSheet.BillingDetailsCollectionConfiguration.AddressCollectionMode {
         switch str {
         case "automatic":
             return .automatic
