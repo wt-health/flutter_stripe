@@ -1,3 +1,25 @@
+## 11.0.0
+**Breaking changes**
+- Add support for intentmode setupMode. If you used `IntentMode before` change it to `IntentMode.paymentMode` instead.
+- This library now only supports Dart sdk 3.0.0 for mobile and Dart sdk 3.3.0 for web and higher.
+
+**Features**
+- Sync with Stripe [0.38.3](https://github.com/stripe/stripe-react-native/releases/tag/v0.38.3). 
+
+**Fixes** 
+- #1729 parse unknown error.
+- #1837 fix for deferred payment methods.
+- #1630 handle next action setup for ios.
+
+## 10.2.0
+
+**Features**
+  - Sync with Stripe [0.38.0](https://github.com/stripe/stripe-react-native/releases/tag/v0.38.0):
+    - Adds support for paymentMethodOrder in PaymentSheet, which provides client side sorting of payment methods.
+**Fixes**
+  - Fix: Apply dynamic Stripe account ID to confirmPayment method in WebStripe (#1798)
+  - Update models and bugfixes for flutter_stripe_web
+
 ## 10.1.1
 
 **Fixes**

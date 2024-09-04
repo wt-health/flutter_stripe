@@ -1,7 +1,7 @@
 //@dart=2.12
 import 'dart:async';
 import 'dart:developer' as dev;
-import 'dart:html';
+import 'package:web/web.dart' as web;
 import 'dart:ui' as ui;
 
 import 'package:flutter/widgets.dart';
@@ -43,7 +43,7 @@ class WebStripe extends StripePlatform {
 
   String? _urlScheme;
 
-  String get urlScheme => _urlScheme ?? window.location.href;
+  String get urlScheme => _urlScheme ?? web.window.location.href;
 
   @override
   Future<void> initialise({
@@ -55,13 +55,21 @@ class WebStripe extends StripePlatform {
     bool? setReturnUrlSchemeOnAndroid,
   }) async {
     this._urlScheme = urlScheme;
+
     if (__stripe != null) {
-      __stripe!.stripeAccount = stripeAccountId;
+      // Check if the new stripeAccountId is different
+      if (__stripe!.stripeAccount != stripeAccountId) {
+        // Re-initialize with new stripeAccountId
+        await stripe_js.loadStripe();
+        var stripeOption = stripe_js.StripeOptions();
+        stripeOption.stripeAccount = stripeAccountId;
+        __stripe = stripe_js.Stripe(publishableKey, stripeOption);
+      }
       return;
     }
 
     await stripe_js.loadStripe();
-    final stripeOption = stripe_js.StripeOptions();
+    var stripeOption = stripe_js.StripeOptions();
     if (stripeAccountId != null) {
       stripeOption.stripeAccount = stripeAccountId;
     }
@@ -153,7 +161,7 @@ class WebStripe extends StripePlatform {
         return js.confirmAlipayPayment(
           paymentIntentClientSecret,
           data: stripe_js.ConfirmAlipayPaymentData(
-            returnUrl: window.location.href,
+            returnUrl: web.window.location.href,
           ),
         );
       },

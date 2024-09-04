@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stripe_example/screens/checkout/checkout_screen.dart';
 import 'package:stripe_example/screens/customer_sheet/customer_sheet_screen.dart';
 import 'package:stripe_example/screens/payment_sheet/payment_element/payment_element.dart';
 import 'package:stripe_example/screens/payment_sheet/payment_sheet_deffered_screen.dart';
 import 'package:stripe_example/screens/payment_sheet/payment_sheet_screen.dart';
 import 'package:stripe_example/screens/payment_sheet/payment_sheet_screen_custom_flow.dart';
+import 'package:stripe_example/screens/regional_payment_methods/affirm_screen.dart';
 import 'package:stripe_example/screens/regional_payment_methods/ali_pay_screen.dart';
 import 'package:stripe_example/screens/regional_payment_methods/aubecs_debit.dart';
 import 'package:stripe_example/screens/regional_payment_methods/cash_app_screen.dart';
@@ -238,6 +238,12 @@ class Example extends StatelessWidget {
         platformsSupported: [DevicePlatform.android, DevicePlatform.ios],
       ),
       Example(
+        title: 'Affirm',
+        leading: SizedBox(),
+        builder: (context) => AffirmScreen(),
+        platformsSupported: [DevicePlatform.android, DevicePlatform.ios],
+      ),
+      Example(
         title: 'Cash app Pay',
         builder: (context) => CashAppScreen(),
         platformsSupported: [DevicePlatform.android, DevicePlatform.ios],
@@ -363,14 +369,5 @@ class Example extends StatelessWidget {
         ],
       ),
     ]),
-    Example(
-      title: 'Checkout',
-      builder: (c) => CheckoutScreenExample(),
-      platformsSupported: [
-        DevicePlatform.android,
-        DevicePlatform.ios,
-        DevicePlatform.web
-      ],
-    ),
   ];
 }
