@@ -39,6 +39,11 @@ _$SetupParametersImpl _$$SetupParametersImplFromJson(
           ? null
           : BillingDetails.fromJson(
               json['defaultBillingDetails'] as Map<String, dynamic>),
+      allowsRemovalOfLastSavedPaymentMethod:
+          json['allowsRemovalOfLastSavedPaymentMethod'] as bool?,
+      paymentMethodOrder: (json['paymentMethodOrder'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       returnURL: json['returnURL'] as String?,
       billingDetailsCollectionConfiguration:
           json['billingDetailsCollectionConfiguration'] == null
@@ -70,6 +75,9 @@ Map<String, dynamic> _$$SetupParametersImplToJson(
       'allowsDelayedPaymentMethods': instance.allowsDelayedPaymentMethods,
       'appearance': instance.appearance?.toJson(),
       'defaultBillingDetails': instance.billingDetails?.toJson(),
+      'allowsRemovalOfLastSavedPaymentMethod':
+          instance.allowsRemovalOfLastSavedPaymentMethod,
+      'paymentMethodOrder': instance.paymentMethodOrder,
       'returnURL': instance.returnURL,
       'billingDetailsCollectionConfiguration':
           instance.billingDetailsCollectionConfiguration?.toJson(),
@@ -112,23 +120,35 @@ Map<String, dynamic> _$$IntentConfigurationImplToJson(
       'paymentMethodTypes': instance.paymentMethodTypes,
     };
 
-_$IntentModeImpl _$$IntentModeImplFromJson(Map<String, dynamic> json) =>
-    _$IntentModeImpl(
+_$PaymentModeImpl _$$PaymentModeImplFromJson(Map<String, dynamic> json) =>
+    _$PaymentModeImpl(
       currencyCode: json['currencyCode'] as String,
-      amount: json['amount'] as int,
+      amount: (json['amount'] as num).toInt(),
       setupFutureUsage: $enumDecodeNullable(
           _$IntentFutureUsageEnumMap, json['setupFutureUsage']),
       captureMethod:
           $enumDecodeNullable(_$CaptureMethodEnumMap, json['captureMethod']),
+      $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$IntentModeImplToJson(_$IntentModeImpl instance) =>
-    <String, dynamic>{
-      'currencyCode': instance.currencyCode,
-      'amount': instance.amount,
-      'setupFutureUsage': _$IntentFutureUsageEnumMap[instance.setupFutureUsage],
-      'captureMethod': _$CaptureMethodEnumMap[instance.captureMethod],
-    };
+Map<String, dynamic> _$$PaymentModeImplToJson(_$PaymentModeImpl instance) {
+  final val = <String, dynamic>{
+    'currencyCode': instance.currencyCode,
+    'amount': instance.amount,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('setupFutureUsage',
+      _$IntentFutureUsageEnumMap[instance.setupFutureUsage]);
+  writeNotNull('captureMethod', _$CaptureMethodEnumMap[instance.captureMethod]);
+  val['runtimeType'] = instance.$type;
+  return val;
+}
 
 const _$IntentFutureUsageEnumMap = {
   IntentFutureUsage.OffSession: 'OffSession',
@@ -141,6 +161,22 @@ const _$CaptureMethodEnumMap = {
   CaptureMethod.AutomaticAsync: 'AutomaticAsync',
   CaptureMethod.Unknown: 'Unknown',
 };
+
+_$SetupModeImpl _$$SetupModeImplFromJson(Map<String, dynamic> json) =>
+    _$SetupModeImpl(
+      currencyCode: json['currencyCode'] as String?,
+      setupFutureUsage:
+          $enumDecode(_$IntentFutureUsageEnumMap, json['setupFutureUsage']),
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$SetupModeImplToJson(_$SetupModeImpl instance) =>
+    <String, dynamic>{
+      'currencyCode': instance.currencyCode,
+      'setupFutureUsage':
+          _$IntentFutureUsageEnumMap[instance.setupFutureUsage]!,
+      'runtimeType': instance.$type,
+    };
 
 _$PaymentSheetApplePayImpl _$$PaymentSheetApplePayImplFromJson(
         Map<String, dynamic> json) =>
@@ -414,7 +450,7 @@ Map<String, dynamic> _$$PresentParametersImplToJson(
 _$PaymentSheetPresentOptionsImpl _$$PaymentSheetPresentOptionsImplFromJson(
         Map<String, dynamic> json) =>
     _$PaymentSheetPresentOptionsImpl(
-      timeout: json['timeout'] as int?,
+      timeout: (json['timeout'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$PaymentSheetPresentOptionsImplToJson(
