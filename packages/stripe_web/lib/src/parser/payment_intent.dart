@@ -57,6 +57,7 @@ extension PaymentIntentsStatusExtension on PaymentIntentsStatus {
         return PaymentIntentsStatus.RequiresAction;
 
       case 'RequiresCapture':
+      case 'requiresCapture':
       case 'requires_capture':
       case 'requiresCapture':
         return PaymentIntentsStatus.RequiresCapture;

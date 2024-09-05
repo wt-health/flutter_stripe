@@ -27,11 +27,13 @@ enum PaymentIntentsStatus {
   /// can instead move to requires_capture. In that case, attempting to capture
   /// the funds moves it to processing.
   requiresCapture,
-
+  
   /// Once required actions are handled, the PaymentIntent moves to processing.
   /// While for some payment methods (for example, cards) processing can be
   /// quick, other types of payment methods can take up to a few days to process.
   processing,
+
+
 
   /// A PaymentIntent with a status of succeeded means that the payment flow
   /// it is driving is complete.
