@@ -12,7 +12,7 @@ part of 'errors.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 StripeError<T> _$StripeErrorFromJson<T>(Map<String, dynamic> json) {
   return _StripeErrorGeneric<T>.fromJson(json);
@@ -135,7 +135,7 @@ class _$StripeErrorGenericImpl<T> implements _StripeErrorGeneric<T> {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$StripeErrorGenericImpl<T> &&
@@ -295,7 +295,7 @@ class _$StripeExceptionImpl implements _StripeException {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$StripeExceptionImpl &&
@@ -346,6 +346,7 @@ LocalizedErrorMessage _$LocalizedErrorMessageFromJson(
 /// @nodoc
 mixin _$LocalizedErrorMessage {
   /// The error code for example Cancelled
+  @JsonKey(unknownEnumValue: FailureCode.Unknown)
   FailureCode get code => throw _privateConstructorUsedError;
 
   /// Localized error message if any
@@ -376,7 +377,7 @@ abstract class $LocalizedErrorMessageCopyWith<$Res> {
       _$LocalizedErrorMessageCopyWithImpl<$Res, LocalizedErrorMessage>;
   @useResult
   $Res call(
-      {FailureCode code,
+      {@JsonKey(unknownEnumValue: FailureCode.Unknown) FailureCode code,
       String? localizedMessage,
       String? message,
       String? stripeErrorCode,
@@ -444,7 +445,7 @@ abstract class _$$LocalizedErrorMessageImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {FailureCode code,
+      {@JsonKey(unknownEnumValue: FailureCode.Unknown) FailureCode code,
       String? localizedMessage,
       String? message,
       String? stripeErrorCode,
@@ -505,7 +506,7 @@ class __$$LocalizedErrorMessageImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$LocalizedErrorMessageImpl implements _LocalizedErrorMessage {
   const _$LocalizedErrorMessageImpl(
-      {required this.code,
+      {@JsonKey(unknownEnumValue: FailureCode.Unknown) required this.code,
       this.localizedMessage,
       this.message,
       this.stripeErrorCode,
@@ -517,6 +518,7 @@ class _$LocalizedErrorMessageImpl implements _LocalizedErrorMessage {
 
   /// The error code for example Cancelled
   @override
+  @JsonKey(unknownEnumValue: FailureCode.Unknown)
   final FailureCode code;
 
   /// Localized error message if any
@@ -545,7 +547,7 @@ class _$LocalizedErrorMessageImpl implements _LocalizedErrorMessage {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LocalizedErrorMessageImpl &&
@@ -582,7 +584,8 @@ class _$LocalizedErrorMessageImpl implements _LocalizedErrorMessage {
 
 abstract class _LocalizedErrorMessage implements LocalizedErrorMessage {
   const factory _LocalizedErrorMessage(
-      {required final FailureCode code,
+      {@JsonKey(unknownEnumValue: FailureCode.Unknown)
+      required final FailureCode code,
       final String? localizedMessage,
       final String? message,
       final String? stripeErrorCode,
@@ -595,6 +598,7 @@ abstract class _LocalizedErrorMessage implements LocalizedErrorMessage {
   @override
 
   /// The error code for example Cancelled
+  @JsonKey(unknownEnumValue: FailureCode.Unknown)
   FailureCode get code;
   @override
 
